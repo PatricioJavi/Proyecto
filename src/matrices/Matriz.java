@@ -47,6 +47,17 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
+    
+    public Matriz matrizTranspuesta(Matriz a){
+        int i, j, dimension;
+        dimension=a.getDimension().height;
+        Matriz matrizTrans = new Matriz(dimension, dimension, false);
+        for(i=0; i<dimension; i++){
+            for(j=0; j<dimension; j++)
+                matrizTrans.datos[i][j]=a.datos[j][i];
+        }
+        return matrizTrans;
+    }
 
     @Override
     public String toString(){
