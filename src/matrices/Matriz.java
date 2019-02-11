@@ -8,6 +8,7 @@ package matrices;
 
 import java.awt.Dimension;
 import java.util.Random;
+import static javax.swing.Spring.width;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
+
 // ///////////////////////////////////////////////////////////////////////////////////////
   
 public  Matriz matrizInversa(Matriz a) throws DimensionesIncompatibles {
@@ -138,6 +140,25 @@ public  Matriz matrizInversa(Matriz a) throws DimensionesIncompatibles {
         return suma;
     }  
    
+
+public static Matriz MultiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles { 
+        if(! a.getDimension().equals(b.getDimension())) throw new DimensionesIncompatibles("El número de columnas de A debe ser igual al número de filas de B ");
+        int i, j, filasA, columnasB,columnasA,k;
+        filasA = a.getDimension().height;
+        columnasB = b.getDimension().width;
+        columnasA = a.getDimension().width;
+        Matriz matrizResultante = new Matriz(filasA, columnasB, false);
+         for (i = 0; i < filasA; i++) {
+            for (j = 0; j < columnasB; j++) {
+                matrizResultante.datos[i][j] = 0;
+                for (k = 0; k < columnasA; k++) {
+                    matrizResultante.datos[i][j] += a.datos[i][k] * b.datos[k][j];
+                }
+            }
+        }
+        return matrizResultante;
+    }
+
     @Override
     public String toString(){
         String ret = "";
