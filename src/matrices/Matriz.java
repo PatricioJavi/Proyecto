@@ -8,6 +8,7 @@ package matrices;
 
 import java.awt.Dimension;
 import java.util.Random;
+import static javax.swing.Spring.width;
 
 /**
  *
@@ -47,19 +48,23 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
-public static Matriz MultiplicarMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles { 
-        if(! a.getDimension().equals(b.getDimension())) throw new DimensionesIncompatibles("La multiplicacion de matrices requiere que número de filas de A y sea igual al número de  columnas de B.");        
-        int i, j, filasA, columnaB; 
-        filasA = a.getDimension().height; 
-        columnaB = b.getDimension().width; 
-        Matriz matrizResultante = new Matriz(filasA, columnaB, false);
-        for (j = 0; j < filasA; j++) { 
-            for (i = 0; i < columnaB; i++) { 
-               matrizResultante.datos[i][j] += a.datos[i][j] * b.datos[j][i]; 
-                            } 
-        } 
-        return matrizResultante; 
-    } 
+public static Matriz MultiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles { 
+        if(! a.getDimension().equals(b.getDimension())) throw new DimensionesIncompatibles("El número de columnas de A debe ser igual al número de filas de B ");
+        int i, j, filasA, columnasB,columnasA,k;
+        filasA = a.getDimension().height;
+        columnasB = b.getDimension().width;
+        columnasA = a.getDimension().width;
+        Matriz matrizResultante = new Matriz(filasA, columnasB, false);
+         for (i = 0; i < filasA; i++) {
+            for (j = 0; j < columnasB; j++) {
+                matrizResultante.datos[i][j] = 0;
+                for (k = 0; k < columnasA; k++) {
+                    matrizResultante.datos[i][j] += a.datos[i][k] * b.datos[k][j];
+                }
+            }
+        }
+        return matrizResultante;
+    }
     @Override
     public String toString(){
         String ret = "";
